@@ -1,0 +1,22 @@
+<div class="container">
+  <img src="path/to/marriage-couple.jpg" alt="Marriage Couple" class="top-image">
+  <div class="form-container">
+    <label>Name:</label>
+    <input type="text" (input)="updateName($event)">
+    <button (click)="startVoiceRecognition()">Start Voice Recognition</button>
+    <br>
+    <label>Place:</label>
+    <input type="text" (input)="updatePlace($event)">
+    <br>
+    <label>Amount:</label>
+    <input type="text" (input)="updateAmount($event)">
+    <br>
+    <button (click)="saveData()">Save</button>
+    <br>
+    <label>{{dataLabel}}</label>
+    <br>
+    <button (click)="viewCollection()">View Collection</button>
+    <br>
+    <img *ngIf="showGif" src="path/to/thankyou.gif" alt="Thank You">
+  </div>
+</div>

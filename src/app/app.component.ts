@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  template: `<router-outlet></router-outlet>`, // This will render your routed components
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'FunctionProject';
-}
+export class AppComponent {}
