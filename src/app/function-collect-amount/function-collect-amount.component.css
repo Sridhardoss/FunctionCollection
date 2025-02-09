@@ -16,18 +16,27 @@
 }
 
 .form-container {
+  position: absolute;
   padding: 20px;
-  background-color: #ffffff; /* White background for the form */
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: transparent;
+  margin-left: 85px;
+  top: 148px;
+
 }
 
 input[type="text"] {
-  width: calc(100% - 22px);
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  width: calc(182% - -14px);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: -36px;
+    text-align: center;
+    font-size: medium;
+    font-weight: 900;
 }
 
 button {
@@ -38,7 +47,21 @@ button {
   color: white;
   cursor: pointer;
 }
-
+.amount-input {
+  position: absolute;
+  width: 102% !important;
+  text-align: center !important;
+  margin-left: -67px !important;
+}
+.savebtn
+{
+  margin-top: 37px;
+  margin-left: 149px;
+}
+.Viewbtn
+{
+  margin-left: 151px;
+}
 button:hover {
   background-color: #45a049;
 }
@@ -49,7 +72,43 @@ img {
 }
 
 label {
-  display: block;
+  display: inherit;
   margin-bottom: 5px;
   font-weight: bold;
+  text-align: center;
+  margin-left: 159px;
 }
+
+.oneimg {
+
+  margin-left: 27%;
+  width: 597px;
+}
+.voice
+{
+  position: absolute;
+  width: 55px;
+  top: 13px;
+  margin-left: 359px;
+}
+.lblhead
+{
+color: #f50000d4;
+}
+.Cnameimg
+{
+  width: 468px;
+  position: absolute;
+  margin-left: 419px;
+  top: -124px;
+
+}
+.couplename {
+  position: absolute;
+  margin-left: 612px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: large;
+  background: transparent;
+}
+

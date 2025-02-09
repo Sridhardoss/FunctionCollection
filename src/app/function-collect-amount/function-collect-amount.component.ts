@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
+import { log } from 'console';
 @Component({
   selector: 'app-function-collect-amount',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule,FormsModule],
   templateUrl: './function-collect-amount.component.html',
   styleUrls: ['./function-collect-amount.component.css']
 })
@@ -17,40 +18,53 @@ export class FunctionCollectionComponent {
   dataLabel: string = '';
   showGif: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private ngZone: NgZone) { }
 
-  updateName(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.name = inputElement.value;
+  updateName(event: any) {
+    this.name = event.target.value;
   }
 
-  updatePlace(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.place = inputElement.value;
+  updatePlace(event: any) {
+    this.place = event.target.value;
   }
 
-  updateAmount(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.amount = +inputElement.value; // Convert amount to number
+  updateAmount(event: any) {
+    this.amount = event.target.value;
   }
 
   startVoiceRecognition() {
     const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.onresult = (event: { results: { transcript: any; }[][]; }) => {
-      const transcript = event.results[0][0].transcript;
-      const words = transcript.split(' ');
+    recognition.lang = 'ta-IN'; // Set to Tamil (India)
+    recognition.interimResults = false; // Ensure final results are processed
 
-      // Assuming the format: "Name Place Amount"
-      if (words.length >= 3) {
-        this.name = words[0] || '';
-        this.place = words[1] || '';
-        this.amount = +words[2] || 0; // Convert amount to number
-        this.saveData(); // Automatically save to DB
+    recognition.onresult = (event: { results: { transcript: any; }[][]; }) => {
+      this.ngZone.run(() => {
+        const transcript = event.results[0][0].transcript;
+        const words = transcript.split(' ');
+        console.log('words', words);
+        console.log('wordslength', words.length);
+
+        // Handle multiple names
+        if (words.length >= 1) {
+          this.name = words.slice(0, -2).join(', ') || '';
+          console.log('name', this.name);
+        }
+        if (words.length >= 2) {
+          this.place = words[words.length - 2] || '';
+          console.log('place', this.place);
+        }
+        if (words.length >= 3) {
+          this.amount = parseFloat(words[words.length - 1]) || 0; // Ensure correct conversion
+          console.log('amount', this.amount);
       }
+        // Optionally save data automatically
+        //this.saveData();
+      });
     };
+
     recognition.start();
   }
+
 
   saveData() {
     const data = {
